@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/akilapilapitiya/herlife-app/app
-  tag: dev-main-bfaedec
+  tag: dev-main-648271f
   pullPolicy: IfNotPresent
 
 imagePullSecrets:

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: herlife-frontend
+description: HerLife frontend application
+type: application
+version: 0.1.0
+appVersion: dev-main-f973fac

@@ -10,7 +10,7 @@ spec:
     app.kubernetes.io/name: herlife-admin
   ports:
     - name: http
-      port: {{ .Values.admin.service.port }}
+      port: {{ .Values.service.port }}
       targetPort: http
       protocol: TCP
   type: ClusterIP

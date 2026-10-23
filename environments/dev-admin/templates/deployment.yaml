@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/name: herlife-admin
     app.kubernetes.io/part-of: herlife
 spec:
-  replicas: {{ .Values.admin.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
       app.kubernetes.io/name: herlife-admin
@@ -17,11 +17,11 @@ spec:
         app.kubernetes.io/part-of: herlife
     spec:
       imagePullSecrets:
-        {{- toYaml .Values.admin.imagePullSecrets | nindent 8 }}
+        {{- toYaml .Values.imagePullSecrets | nindent 8 }}
       containers:
         - name: admin
-          image: "{{ .Values.admin.image.repository }}:{{ .Values.admin.image.tag }}"
-          imagePullPolicy: {{ .Values.admin.image.pullPolicy }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
               containerPort: 80

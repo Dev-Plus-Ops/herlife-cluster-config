@@ -19,26 +19,3 @@ ingress:
     enabled: true
     secretName: herlife-tls
 
-# React admin dashboard. Same stack as the app (nginx serving the Vite build
-# on port 80), same GHCR pull secret, deployed into herlife-dev.
-admin:
-  replicaCount: 1
-
-  image:
-    repository: ghcr.io/akilapilapitiya/herlife-app/admin
-    tag: dev-main-db75dd8
-    pullPolicy: IfNotPresent
-
-  imagePullSecrets:
-    - name: ghcr-pull-secret
-
-  service:
-    port: 80
-
-  ingress:
-    enabled: true
-    className: traefik
-    host: dev.admin.herlife.itsakila.me
-    tls:
-      enabled: true
-      secretName: herlife-admin-tls

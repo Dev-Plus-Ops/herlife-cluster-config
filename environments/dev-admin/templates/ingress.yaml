@@ -1,4 +1,4 @@
-{{- if .Values.admin.ingress.enabled }}
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -7,13 +7,13 @@ metadata:
     app.kubernetes.io/name: herlife-admin
     app.kubernetes.io/part-of: herlife
 spec:
-  ingressClassName: {{ .Values.admin.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
   tls:
     - hosts:
-        - {{ .Values.admin.ingress.host }}
-      secretName: {{ .Values.admin.ingress.tls.secretName }}
+        - {{ .Values.ingress.host }}
+      secretName: {{ .Values.ingress.tls.secretName }}
   rules:
-    - host: {{ .Values.admin.ingress.host }}
+    - host: {{ .Values.ingress.host }}
       http:
         paths:
           - path: /

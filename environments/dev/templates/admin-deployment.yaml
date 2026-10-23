@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: herlife-admin
+  labels:
+    app.kubernetes.io/name: herlife-admin
+    app.kubernetes.io/part-of: herlife
+spec:
+  replicas: {{ .Values.admin.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: herlife-admin
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: herlife-admin
+        app.kubernetes.io/part-of: herlife
+    spec:
+      imagePullSecrets:
+        {{- toYaml .Values.admin.imagePullSecrets | nindent 8 }}
+      containers:
+        - name: admin
+          image: "{{ .Values.admin.image.repository }}:{{ .Values.admin.image.tag }}"
+          imagePullPolicy: {{ .Values.admin.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http

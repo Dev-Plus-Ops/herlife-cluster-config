@@ -14,7 +14,7 @@ service:
 ingress:
   enabled: true
   className: traefik
-  host: herlife.itsakila.me
+  host: app.dev.herlife.itsakila.me
   tls:
     enabled: true
     secretName: herlife-tls

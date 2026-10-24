@@ -20,7 +20,6 @@ ingress:
     secretName: herlife-admin-tls
 
 env:
-  # VITE_* variables are baked into the bundle at image build time (the GitHub
-  # workflow passes them as build-args); this value documents the desired state
-  # and is available as a container env var at runtime.
-  VITE_API_BASE_URL: https://api-dev-herlife.itsakila.me
+  # Injected into the pod and consumed at container startup by the image's
+  # docker-entrypoint.sh, which writes runtime config (config.js) for the SPA.
+  API_URL: https://api-dev-herlife.itsakila.me

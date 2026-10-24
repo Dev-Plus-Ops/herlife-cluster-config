@@ -1,20 +1,15 @@
 image:
   repository: ghcr.io/akilapilapitiya/herlife-app/api
-  tag: dev
+  tag: dev-main-cc3d377
   pullPolicy: IfNotPresent
-
 imagePullSecrets:
   - name: ghcr-pull-secret
-
 replicaCount: 1
-
 service:
   port: 80
-
 env:
   GIN_MODE: release
   CORS_ALLOWED_ORIGINS: https://app-dev-herlife.itsakila.me,https://admin-dev-herlife.itsakila.me
-
 ingress:
   enabled: true
   className: traefik
@@ -22,20 +17,17 @@ ingress:
   tls:
     enabled: true
     secretName: herlife-api-tls
-
 # Probe tuning. The readiness target is /health (plain HTTP): the API has no
 # backing dependencies to check, so readiness simply reports the process is
 # accepting requests.
 startupProbe:
   periodSeconds: 3
   timeoutSeconds: 2
-  failureThreshold: 30   # allow up to 90s of boot time before liveness starts
-
+  failureThreshold: 30 # allow up to 90s of boot time before liveness starts
 readinessProbe:
   periodSeconds: 5
   timeoutSeconds: 2
   failureThreshold: 3
-
 livenessProbe:
   periodSeconds: 15
   timeoutSeconds: 3

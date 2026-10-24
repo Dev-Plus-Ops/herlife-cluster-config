@@ -3,4 +3,4 @@ name: herlife-api
 description: HerLife backend API
 type: application
 version: 0.1.0
-appVersion: dev
+appVersion: dev-main-cc3d377

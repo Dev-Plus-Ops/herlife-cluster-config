@@ -1,0 +1,25 @@
+image:
+  repository: ghcr.io/akilapilapitiya/herlife-app/api
+  tag: dev
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: ghcr-pull-secret
+
+replicaCount: 1
+
+service:
+  port: 80
+
+env:
+  GIN_MODE: release
+  # Origins of the app and admin frontends reaching this API from the browser
+  CORS_ALLOWED_ORIGINS: https://app-dev-herlife.itsakila.me,https://admin-dev-herlife.itsakila.me
+
+ingress:
+  enabled: true
+  className: traefik
+  host: api-dev-herlife.itsakila.me
+  tls:
+    enabled: true
+    secretName: herlife-api-tls

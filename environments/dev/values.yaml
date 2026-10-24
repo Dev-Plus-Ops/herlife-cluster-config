@@ -1,16 +1,12 @@
 image:
   repository: ghcr.io/akilapilapitiya/herlife-app/app
-  tag: dev-main-648271f
+  tag: dev-main-5e1efce
   pullPolicy: IfNotPresent
-
 imagePullSecrets:
   - name: ghcr-pull-secret
-
 replicaCount: 1
-
 service:
   port: 80
-
 ingress:
   enabled: true
   className: traefik
@@ -18,9 +14,7 @@ ingress:
   tls:
     enabled: true
     secretName: herlife-tls
-
 env:
   # Injected into the pod and consumed at container startup by the image's
   # docker-entrypoint.sh, which writes runtime config (config.js) for the SPA.
   API_URL: https://api-dev-herlife.itsakila.me
-

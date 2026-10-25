@@ -1,0 +1,33 @@
+name: Delete branch after PR merge
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  delete-branch:
+    # Only run when the PR was actually merged (not just closed without merging)
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete merged bot/* branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+          REPO: ${{ github.repository }}
+        run: |
+          # Only delete branches under bot/* (e.g. bot/update-tag-...)
+          case "$BRANCH" in
+            bot/*)
+              echo "PR #${{ github.event.pull_request.number }} merged; deleting branch: $BRANCH"
+              gh api \
+                --method DELETE \
+                "repos/${REPO}/git/refs/heads/${BRANCH}"
+              ;;
+            *)
+              echo "Branch '$BRANCH' is not a bot/* branch; skipping deletion."
+              ;;
+          esac

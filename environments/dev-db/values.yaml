@@ -33,6 +33,10 @@ pgadmin:
     tls:
       enabled: true
       secretName: herlife-db-tls
+  persistence:
+    # stores pgAdmin's config DB (user accounts, saved servers) across restarts
+    enabled: true
+    size: 1Gi
 
 imagePullSecrets:
   - name: ghcr-pull-secret

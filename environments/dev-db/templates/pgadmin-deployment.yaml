@@ -7,6 +7,9 @@ metadata:
     app.kubernetes.io/name: herlife-pgadmin
     app.kubernetes.io/part-of: herlife
 spec:
+  # pgAdmin config DB is on shared storage; rolling overlaps corrupt it (docs)
+  strategy:
+    type: Recreate
   replicas: 1
   selector:
     matchLabels:
@@ -27,10 +30,40 @@ spec:
           envFrom:
             - secretRef:
                 name: {{ .Values.pgadmin.loginSecret }}
+          env:
+            # Only see Traefik over http, so give the external URL explicitly
+            - name: PGADMIN_CONFIG_PROXY_URL
+              value: '"https://{{ .Values.pgadmin.ingress.host }}"'
+            # Bind-to-proxy checksum redirects to /login right after successful auth
+            - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
+              value: "False"
+            - name: PGADMIN_CONFIG_SESSION_EXPIRATION_TIME
+              value: "25920"
           volumeMounts:
             - name: pgadmin-data
               mountPath: /var/lib/pgadmin
       volumes:
         - name: pgadmin-data
+          {{- if .Values.pgadmin.persistence.enabled }}
+          persistentVolumeClaim:
+            claimName: herlife-pgadmin-data
+          {{- else }}
           emptyDir: {}
+          {{- end }}
+{{- if and .Values.pgadmin.enabled .Values.pgadmin.persistence.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: herlife-pgadmin-data
+  labels:
+    app.kubernetes.io/name: herlife-pgadmin
+    app.kubernetes.io/part-of: herlife
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.pgadmin.persistence.size }}
+{{- end }}
 {{- end }}

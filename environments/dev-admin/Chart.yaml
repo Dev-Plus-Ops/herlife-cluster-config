@@ -3,4 +3,4 @@ name: herlife-admin
 description: HerLife admin dashboard
 type: application
 version: 0.1.0
-appVersion: dev-main-8a0396e
+appVersion: dev-chore-revert-for-db-f6ea7d5

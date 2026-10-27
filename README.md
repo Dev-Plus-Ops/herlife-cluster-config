@@ -9,9 +9,10 @@ The environments deployed under the `herlife` Argo CD `ApplicationSet`
 
 | Environment | Chart | Release name | Host |
 |---|---|---|---|
-| `environments/dev` | frontend app (`app` image) | `herlife-dev-app` | app-dev-herlife.itsakila.me |
+| `environments/dev-app` | frontend app (`app` image) | `herlife-dev-app` | app-dev-herlife.itsakila.me |
 | `environments/dev-admin` | admin dashboard (`admin` image) | `herlife-dev-admin` | admin-dev-herlife.itsakila.me |
 | `environments/dev-api` | backend API (`api` image) | `herlife-dev-api` | api-dev-herlife.itsakila.me |
+| `environments/dev-db` | CloudNativePG PostgreSQL cluster + pgAdmin | `herlife-dev-db` | db.itsakila.me |
 
 All releases deploy into the `herlife-dev` namespace.
 
@@ -21,8 +22,11 @@ All three charts pass environment through an `env` map in `values.yaml`, which
 is injected into the pod containers at startup. Nothing is baked into the
 images:
 
-- **api** — reads `GIN_MODE` and `CORS_ALLOWED_ORIGINS`. The CORS list should
-  contain the app and admin origin hosts.
+- **api** — reads `GIN_MODE`, `CORS_ALLOWED_ORIGINS`, and the `DB_*` vars for
+  its CloudNativePG cluster (`herlife-db-rw` in this namespace). `DB_PASSWORD`
+  comes from the `herlife-db-app` secret via `secretKeyRef` — passwords never
+  live in git. Requires the `cnpg` operator Application (platform repo) and the
+  `dev-db` chart to be healthy.
 - **app / admin** — the image's `docker-entrypoint.sh` converts `API_URL` into
   a runtime `config.js` (`window.APP_CONFIG`) that the SPA loads before its
   bundle.

@@ -10,6 +10,19 @@ service:
 env:
   GIN_MODE: release
   CORS_ALLOWED_ORIGINS: https://app-dev-herlife.itsakila.me,https://admin-dev-herlife.itsakila.me
+  # PostgreSQL: CloudNativePG herlife-db cluster (same namespace, <name>-rw service)
+  DB_HOST: herlife-db-rw.herlife-dev.svc.cluster.local
+  DB_PORT: "5432"
+  DB_USER: app
+  DB_NAME: herlife_dev
+
+# Sensitive values are pulled from the CNPG-managed app-user secret at pod
+# startup — no passwords in git. The secret is the bootstrap.initdb.secret
+# the db chart references (herlife-db-app).
+envSecretKeyRefs:
+  DB_PASSWORD:
+    secret: herlife-db-app
+    key: password
 ingress:
   enabled: true
   className: traefik

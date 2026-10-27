@@ -1,0 +1,26 @@
+{{- if and .Values.pgadmin.enabled .Values.pgadmin.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: herlife-pgadmin
+  labels:
+    app.kubernetes.io/name: herlife-pgadmin
+    app.kubernetes.io/part-of: herlife
+spec:
+  ingressClassName: {{ .Values.pgadmin.ingress.className }}
+  tls:
+    - hosts:
+        - {{ .Values.pgadmin.ingress.host }}
+      secretName: {{ .Values.pgadmin.ingress.tls.secretName }}
+  rules:
+    - host: {{ .Values.pgadmin.ingress.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: herlife-pgadmin
+                port:
+                  name: http
+{{- end }}

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: herlife-db
+description: HerLife PostgreSQL cluster (CloudNativePG) and pgAdmin UI
+type: application
+version: 0.1.0
+appVersion: dev

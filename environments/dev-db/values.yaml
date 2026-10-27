@@ -1,0 +1,38 @@
+# PostgreSQL cluster managed by the CloudNativePG operator (installed from the
+# platform repository as the `cnpg` Argo CD Application).
+
+db:
+  # CNPG Cluster resource name; generates the -rw/-ro/-r services
+  name: herlife-db
+  instances: 1
+  storage:
+    size: 5Gi
+  postgresImage: ghcr.io/cloudnative-pg/postgresql:17.6
+
+  # Database bootstrapped on first initdb run.
+  database: herlife_dev
+  ownerUser: app
+
+  # Secrets supplied by the tenant admin (kubectl apply), NOT generated in git.
+  superuserSecret: herlife-db-superuser # keys: username, password
+  appUserSecret: herlife-db-app # keys: username, password
+  # Secret containing SQL run once after bootstrap; creates the non-shared
+  # herlife group user (keys: team.sql)
+  teamInitSecret: herlife-db-teaminit
+
+pgadmin:
+  enabled: true
+  image: dpage/pgadmin4:9.16
+  loginSecret: pgadmin-login # keys: PGADMIN_DEFAULT_EMAIL, PGADMIN_DEFAULT_PASSWORD
+  service:
+    port: 80
+  ingress:
+    enabled: true
+    className: traefik
+    host: db.itsakila.me
+    tls:
+      enabled: true
+      secretName: herlife-db-tls
+
+imagePullSecrets:
+  - name: ghcr-pull-secret

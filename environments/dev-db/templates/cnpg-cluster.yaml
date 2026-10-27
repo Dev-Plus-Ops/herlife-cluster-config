@@ -1,0 +1,25 @@
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: {{ .Values.db.name }}
+  labels:
+    app.kubernetes.io/name: herlife-db
+    app.kubernetes.io/part-of: herlife
+spec:
+  instances: {{ .Values.db.instances }}
+  imageName: {{ .Values.db.postgresImage }}
+  enableSuperuserAccess: true
+  superuserSecret:
+    name: {{ .Values.db.superuserSecret }}
+  bootstrap:
+    initdb:
+      database: {{ .Values.db.database }}
+      owner: {{ .Values.db.ownerUser }}
+      secret:
+        name: {{ .Values.db.appUserSecret }}
+      postInitApplicationSQLRefs:
+        secretRefs:
+          - name: {{ .Values.db.teamInitSecret }}
+            key: team.sql
+  storage:
+    size: {{ .Values.db.storage.size }}

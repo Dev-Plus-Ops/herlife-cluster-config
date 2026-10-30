@@ -9,6 +9,7 @@ service:
   port: 80
 env:
   GIN_MODE: release
+  JWT_SECRET: "iHamMnJldOETY95qxyGjNFZeVI4zc87QUtWr3uDAXbBLSkpR"
   CORS_ALLOWED_ORIGINS: https://app-dev-herlife.itsakila.me,https://admin-dev-herlife.itsakila.me
   # PostgreSQL: CloudNativePG herlife-db cluster (same namespace, <name>-rw service)
   DB_HOST: herlife-db-rw.herlife-dev.svc.cluster.local
@@ -22,9 +23,6 @@ envSecretKeyRefs:
   DB_PASSWORD:
     secret: herlife-db-app
     key: password
-  JWT_SECRET:
-    secret: herlife-api-jwt
-    key: secret
 ingress:
   enabled: true
   className: traefik

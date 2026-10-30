@@ -3,4 +3,4 @@ name: herlife-api
 description: HerLife backend API
 type: application
 version: 0.1.0
-appVersion: dev-chore-revert-for-db-f6ea7d5
+appVersion: dev-feat-backend-foundation-7afdb42

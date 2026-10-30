@@ -22,6 +22,9 @@ envSecretKeyRefs:
   DB_PASSWORD:
     secret: herlife-db-app
     key: password
+  JWT_SECRET:
+    secret: herlife-api-jwt
+    key: secret
 ingress:
   enabled: true
   className: traefik

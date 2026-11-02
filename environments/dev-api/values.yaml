@@ -25,6 +25,12 @@ envSecretKeyRefs:
   JWT_SECRET:
     secret: herlife-api-jwt
     key: JWT_SECRET
+  ADMIN_EMAIL:
+    secret: herlife-api-admin
+    key: ADMIN_EMAIL
+  ADMIN_PASSWORD:
+    secret: herlife-api-admin
+    key: ADMIN_PASSWORD
 ingress:
   enabled: true
   className: traefik

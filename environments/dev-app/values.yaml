@@ -18,3 +18,8 @@ env:
   # Injected into the pod and consumed at container startup by the image's
   # docker-entrypoint.sh, which writes runtime config (config.js) for the SPA.
   API_URL: https://api-dev-herlife.itsakila.me
+# Pulled from the same Kubernetes secret the API uses.
+envSecretKeyRefs:
+  GOOGLE_CLIENT_ID:
+    secret: herlife-api-google
+    key: GOOGLE_CLIENT_ID

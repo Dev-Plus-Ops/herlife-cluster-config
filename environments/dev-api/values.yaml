@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/akilapilapitiya/herlife-app/api
-  tag: dev-feat-community-admin-7d7f105
+  tag: dev-feat-auth-scope-improvements-a489538
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: ghcr-pull-secret
@@ -31,6 +31,9 @@ envSecretKeyRefs:
   ADMIN_PASSWORD:
     secret: herlife-api-admin
     key: ADMIN_PASSWORD
+  GOOGLE_CLIENT_ID:
+    secret: herlife-api-google
+    key: GOOGLE_CLIENT_ID
 ingress:
   enabled: true
   className: traefik

@@ -3,4 +3,4 @@ name: herlife-api
 description: HerLife backend API
 type: application
 version: 0.1.0
-appVersion: dev-feat-community-admin-7d7f105
+appVersion: dev-feat-auth-scope-improvements-a489538

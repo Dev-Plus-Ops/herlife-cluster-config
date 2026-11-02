@@ -31,6 +31,9 @@ envSecretKeyRefs:
   ADMIN_PASSWORD:
     secret: herlife-api-admin
     key: ADMIN_PASSWORD
+  GOOGLE_CLIENT_ID:
+    secret: herlife-api-google
+    key: GOOGLE_CLIENT_ID
 ingress:
   enabled: true
   className: traefik

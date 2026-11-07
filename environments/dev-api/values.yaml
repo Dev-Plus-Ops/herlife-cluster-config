@@ -34,6 +34,14 @@ envSecretKeyRefs:
   GOOGLE_CLIENT_ID:
     secret: herlife-api-google
     key: GOOGLE_CLIENT_ID
+  # AI assistant keys (Secret herlife-api-assistant). The assistant is always on;
+  # it is unavailable only while either key is missing.
+  ANTHROPIC_API_KEY:
+    secret: herlife-api-assistant
+    key: ANTHROPIC_API_KEY
+  GEMINI_API_KEY:
+    secret: herlife-api-assistant
+    key: GEMINI_API_KEY
 ingress:
   enabled: true
   className: traefik

@@ -34,6 +34,12 @@ envSecretKeyRefs:
   GOOGLE_CLIENT_ID:
     secret: herlife-api-google
     key: GOOGLE_CLIENT_ID
+  ANTHROPIC_API_KEY:
+    secret: herlife-api-assistant
+    key: ANTHROPIC_API_KEY
+  GEMINI_API_KEY:
+    secret: herlife-api-assistant
+    key: GEMINI_API_KEY
 ingress:
   enabled: true
   className: traefik

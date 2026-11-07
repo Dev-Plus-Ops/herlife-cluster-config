@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/akilapilapitiya/herlife-app/api
-  tag: dev-release-1.0.0-d3ef7fe
+  tag: dev-release-1.0.0-2c57e6f
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: ghcr-pull-secret

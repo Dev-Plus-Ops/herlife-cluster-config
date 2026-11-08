@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/akilapilapitiya/herlife-app/app
-  tag: dev-release-1.0.0-978e6b7
+  tag: dev-release-1.0.0-d227815
   pullPolicy: IfNotPresent
 imagePullSecrets:
   - name: ghcr-pull-secret
@@ -18,10 +18,6 @@ env:
   # Injected into the pod and consumed at container startup by the image's
   # docker-entrypoint.sh, which writes runtime config (config.js) for the SPA.
   API_URL: https://api-dev-herlife.itsakila.me
-  VITE_PWA_BACKGROUND_COLOR: 'F891BB'
-  VITE_PWA_THEME_COLOR: '#F13E93'
-  VITE_APP_DESCRIPTION: 'Herlife Dev Build Description Plain text'
-  VITE_APP_SHORT_NAME: 'Herlife Dev Build'
 # Pulled from the same Kubernetes secret the API uses.
 envSecretKeyRefs:
   GOOGLE_CLIENT_ID:
